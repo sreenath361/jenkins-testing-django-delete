@@ -13,7 +13,6 @@ pipeline {
                 script {
                     currentBuild.displayName = params.version
                 }
-                sh 'ls -al"
                 sh 'pwd'
                 sh 'terraform init -input=false'
                 sh 'terraform workspace select ${environment}'
