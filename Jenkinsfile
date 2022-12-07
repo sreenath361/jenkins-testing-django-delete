@@ -46,6 +46,7 @@ pipeline {
 
     post {
         always {
+            sh 'cd terraform'
             archiveArtifacts artifacts: 'tfplan.txt'
         }
     }
