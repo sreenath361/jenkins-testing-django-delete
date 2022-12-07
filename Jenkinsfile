@@ -16,7 +16,7 @@ pipeline {
                 sh 'pwd'
                 sh 'cd terraform && terraform init -input=false'
                 sh 'cd terraform && terraform workspace select ${environment}'
-                sh "cd terraform && terraform plan -input=false -out tfplan -var 'version=${params.version}'"
+                sh "cd terraform && terraform plan -input=false -out tfplan"
                 sh 'cd terraform && terraform show -no-color tfplan > tfplan.txt'
             }
         }
