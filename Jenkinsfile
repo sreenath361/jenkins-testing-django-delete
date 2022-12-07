@@ -14,7 +14,7 @@ pipeline {
                     currentBuild.displayName = params.version
                 }
                 sh 'pwd'
-                sh 'cd terraform/
+                sh 'cd terraform'
                 sh 'terraform init -input=false'
                 sh 'terraform workspace select ${environment}'
                 sh "terraform plan -input=false -out tfplan -var 'version=${params.version}' --var-file=environments/${params.environment}.tfvars"
