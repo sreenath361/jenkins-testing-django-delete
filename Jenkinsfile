@@ -14,10 +14,10 @@ pipeline {
                     currentBuild.displayName = params.version
                 }
                 sh 'pwd'
-                sh 'cd terraform && terraform init -input=false'
-                sh 'cd terraform && terraform workspace select ${environment}'
-                sh "cd terraform && terraform plan -input=false -out tfplan"
-                sh 'cd terraform && terraform show -no-color tfplan > tfplan.txt'
+                sh 'terraform init -input=false'
+                sh 'terraform workspace select ${environment}'
+                sh "terraform plan -input=false -out tfplan"
+                sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
 
@@ -39,14 +39,13 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "cd terraform && terraform apply -input=false tfplan"
+                sh "terraform apply -input=false tfplan"
             }
         }
     }
 
     post {
         always {
-            sh 'cd terraform'
             archiveArtifacts artifacts: 'tfplan.txt'
         }
     }
